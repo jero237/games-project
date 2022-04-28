@@ -3,12 +3,8 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  background-color: #1f1f1f;
   max-width: 80%;
-  padding: 1rem 2%;
-  border-radius: 4px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
 }
 
 @media screen and (max-width: 768px) {
