@@ -1,0 +1,19 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  box-shadow: 1px 1px 1px 1px #000000;
+  background-color: #1f1f1f;
+}
+
+.logo {
+  height: 2rem;
+  width: auto;
+  margin: none;
+}
+
+.link {
+  color: white;
+  text-decoration: none;
+}
