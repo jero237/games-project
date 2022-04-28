@@ -3,7 +3,8 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  box-shadow: 1px 1px 1px 1px #000000;
+  /* box-shadow: 1px 1px 1px 1px #000000; */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   background-color: #1f1f1f;
 }
 
