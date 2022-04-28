@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { filterByOrigin, resetFilters, filterByGenre } from '../../redux/actions'
+import { filterByOrigin, resetFilters, filterByGenre, setPage } from '../../redux/actions'
 import styles from "./Filters.module.css"
 
 export default function Filters() {
@@ -9,6 +9,7 @@ export default function Filters() {
     const [clicked, setClicked] = useState([])
 
     const handleClick = (e) => {
+        dispatch(setPage(1))
         if (e.target.innerText === "User Created" || e.target.innerText === "Legacy") dispatch(filterByOrigin(e.target.innerText))
         else dispatch(filterByGenre(e.target.innerText))
         e.target.className = styles.active
