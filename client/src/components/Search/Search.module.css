@@ -3,5 +3,9 @@
   justify-content: center;
   align-items: center;
   gap: 1em;
-  margin: 2rem;
+}
+
+.input {
+  max-width: 40vw;
+  min-width: 10vw;
 }

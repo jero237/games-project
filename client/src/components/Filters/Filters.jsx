@@ -56,7 +56,6 @@ export default function Filters() {
                 </div>
             </div>
 
-            <button onClick={handleReset}>RESET FILTERS</button>
 
             <div className={styles.dropdown}>
                 <button className={styles.dropbtn} >SORT BY</button>
@@ -70,6 +69,8 @@ export default function Filters() {
                     </div>
                 </div>
             </div>
+
+            <button onClick={handleReset}>RESET FILTERS</button>
         </>
     )
 }

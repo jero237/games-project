@@ -44,7 +44,7 @@ export const Cards = (props) => {
 
                 <SearchBar />
                 {/* Renders all cards */}
-                <div className={styles.cardsContainer} style={{ display: loading ? "none" : "grid" }}>
+                <div className={styles.cardsContainer} style={{ display: loading ? "none" : "flex" }}>
                     {searchResults ? searchResults.map(game =>
                         <GameCard
                             key={game.id}
@@ -65,7 +65,7 @@ export const Cards = (props) => {
 
             <SearchBar />
             {/* Renders all cards */}
-            <div className={styles.cardsContainer} style={{ display: loading ? "none" : "grid" }}>
+            <div className={styles.cardsContainer} style={{ display: loading ? "none" : "flex" }}>
                 {pageGames.map(game =>
                     <GameCard
                         key={game.id}

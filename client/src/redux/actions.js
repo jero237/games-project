@@ -1,5 +1,6 @@
 import axios from "axios"
 
+const URL = "http://192.168.0.242:3001"
 
 export const GET_ALL_GAMES = "GET_ALL_GAMES"
 export const SEARCH_GAMES = "SEARCH_GAMES"
@@ -12,7 +13,7 @@ export const FILTER_BY_GENRE = "FILTER_BY_GENRE"
 
 export const getAllGames = () => {
     return (dispatch) => {
-        return axios.get("http://127.0.0.1:3001/videogames", {
+        return axios.get(URL + "/videogames", {
         })
             .then(res => {
                 console.log(res.data)
@@ -27,7 +28,7 @@ export const getAllGames = () => {
 
 export const searchGames = (name) => {
     return async (dispatch) => {
-        return axios.get(`http://127.0.0.1:3001/videogames?name=${name}`)
+        return axios.get(`${URL}/videogames?name=${name}`)
             .then(res => {
                 dispatch({
                     type: SEARCH_GAMES,
@@ -40,7 +41,7 @@ export const searchGames = (name) => {
 
 export const getGameDetails = (id) => {
     return async (dispatch) => {
-        return axios.get(`http://127.0.0.1:3001/videogame/${id}`)
+        return axios.get(`${URL}/videogame/${id}`)
             .then(res => {
                 dispatch({
                     type: GET_GAME_DETAILS,
