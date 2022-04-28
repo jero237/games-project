@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const URL = "http://192.168.0.242:3001"
+const URL = "https://videogames-1.herokuapp.com/"
 
 export const GET_ALL_GAMES = "GET_ALL_GAMES"
 export const SEARCH_GAMES = "SEARCH_GAMES"
