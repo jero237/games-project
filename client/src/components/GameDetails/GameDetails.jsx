@@ -28,7 +28,7 @@ function GameDetails() {
             <div className={styles.container} style={{ display: loading ? "none" : "flex" }}>
 
                 <div className={styles.firstRow}>
-                    <h1 >{name}</h1>
+                    <h1 className={styles.title}>{name}</h1>
                     <span className={styles.titles}>Rating:&nbsp;<p className={styles.rating}>{rating}/5</p></span>
                     <span className={styles.titles}>Launch Date:&nbsp;<p className={styles.launchDate}>{launchDate}</p></span>
                 </div>
