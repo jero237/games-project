@@ -1,7 +1,7 @@
 const { default: axios } = require('axios')
 const express = require('express')
 const router = express.Router()
-const key = require("../apikey")
+const key = process.env.API_KEY
 const URL = `https://api.rawg.io/api/games/`
 const { Videogame, Genre } = require("../db")
 
