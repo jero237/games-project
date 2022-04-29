@@ -1,4 +1,4 @@
-import { GET_ALL_GAMES, SEARCH_GAMES, GET_GAME_DETAILS, LOADING, SET_PAGE, FILTER_BY_ORIGIN, RESET_FILTERS, FILTER_BY_GENRE } from "./actions"
+import { GET_ALL_GAMES, SEARCH_GAMES, GET_GAME_DETAILS, LOADING, SET_PAGE, FILTER_BY_ORIGIN, RESET_FILTERS, FILTER_BY_GENRE, SORT } from "./actions"
 
 const initialState = {
     games: [],
@@ -7,7 +7,8 @@ const initialState = {
     notFilteredResults: [],
     gameDetails: {},
     loading: true,
-    page: 1
+    page: 1,
+    sorted: ""
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -45,11 +46,12 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 games: state.notFilteredGames,
-                searchResults: state.notFilteredResults
+                searchResults: state.notFilteredResults,
+                sorted: ""
             }
         case FILTER_BY_ORIGIN:
             let filter
-            if (action.payload === "Legacy") filter = "number"
+            if (action.payload === "legacy") filter = "number"
             else filter = "string"
             return {
                 ...state,
@@ -61,6 +63,21 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 searchResults: state.searchResults.filter(e => e.genres.includes(action.payload)),
                 games: state.games.filter(e => e.genres.includes(action.payload))
+            }
+        case SORT:
+
+            if (/b$/.test(state.sorted))
+                return {
+                    ...state,
+                    searchResults: [...state.searchResults].sort((b, a) => a[action.payload].toString().localeCompare(b[action.payload].toString())),
+                    games: [...state.games].sort((b, a) => a[action.payload].toString().localeCompare(b[action.payload.toString()])),
+                    sorted: action.payload + "-a"
+                }
+            return {
+                ...state,
+                searchResults: [...state.searchResults].sort((a, b) => a[action.payload].toString().localeCompare(b[action.payload].toString())),
+                games: [...state.games].sort((a, b) => a[action.payload].toString().localeCompare(b[action.payload.toString()])),
+                sorted: action.payload + "-b"
             }
         default:
             return state

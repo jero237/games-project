@@ -15,7 +15,7 @@ function GameDetails() {
 
     useEffect(() => {
         dispatch(getGameDetails(params.id))
-    }, [])
+    }, [dispatch, params.id])
 
     const imageLoaded = () => {
         if (id.toString() === params.id) dispatch(setLoading(false))

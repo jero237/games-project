@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from "./PageControls.module.css"
 import { useDispatch, useSelector } from 'react-redux'
-import { setLoading, setPage } from '../../redux/actions'
+import { setPage } from '../../redux/actions'
 
 function PageControls() {
 

@@ -1,25 +1,33 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { filterByOrigin, resetFilters, filterByGenre, setPage } from '../../redux/actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { filterByOrigin, resetFilters, filterByGenre, setPage, sort } from '../../redux/actions'
 import styles from "./Filters.module.css"
 
 export default function Filters() {
 
     const dispatch = useDispatch()
-    const [clicked, setClicked] = useState([])
+    const sorted = useSelector(state => state.sorted)
+    const [lastClicked, setlastClicked] = useState(null)
 
     const handleClick = (e) => {
+        console.log(e.target.innerText)
+        const name = e.target.getAttribute("name")
         dispatch(setPage(1))
-        if (e.target.innerText === "User Created" || e.target.innerText === "Legacy") dispatch(filterByOrigin(e.target.innerText))
-        else dispatch(filterByGenre(e.target.innerText))
-        e.target.className = styles.active
-        setClicked([...clicked, e])
-    }
 
-    const handleReset = () => {
+        if (["name", "rating"].includes(name)) return dispatch(sort(name))
+
         dispatch(resetFilters())
-        clicked.forEach(e => e.target.className = "")
-        setClicked([])
+
+        setlastClicked(e)
+        if (e.target.className === "") e.target.className = styles.active
+        else return e.target.className = ""
+        if (lastClicked && lastClicked.target !== e.target) lastClicked.target.className = ""
+
+
+        if (["userCreated", "legacy"].includes(name)) dispatch(filterByOrigin(name))
+
+        else dispatch(filterByGenre(e.target.innerText))
+
     }
 
     return (
@@ -51,8 +59,8 @@ export default function Filters() {
                     </div>
                     <div className={styles.categoriesContainer}>
                         <p className={styles.categories} >Videogame Type</p>
-                        <span onClick={handleClick} >User Created</span>
-                        <span onClick={handleClick} >Legacy</span>
+                        <span onClick={handleClick} name="userCreated" >User Created</span>
+                        <span onClick={handleClick} name="legacy" >Legacy</span>
                     </div>
                 </div>
             </div>
@@ -62,16 +70,15 @@ export default function Filters() {
                 <button className={styles.dropbtn} >SORT BY</button>
                 <div className={styles.dropdownContent}>
                     <div className={styles.categoriesContainer}>
-                        <span onClick={handleClick} >Name</span>
+                        <span onClick={handleClick} name="name">Name {(sorted.match("name-a") && "↑") || (sorted.match("name-b") && "↓")}</span>
 
                     </div>
                     <div className={styles.categoriesContainer}>
-                        <span onClick={handleClick} >Rating</span>
+                        <span onClick={handleClick} name="rating" >Rating {(sorted.match("rating-b") && "↑") || (sorted.match("rating-a") && "↓")}</span>
                     </div>
                 </div>
             </div>
 
-            <button onClick={handleReset}>RESET FILTERS</button>
         </>
     )
 }

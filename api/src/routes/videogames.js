@@ -14,10 +14,10 @@ router.get('/', async (req, res) => {
 
 
         let searchResults = await axios.get(`${URL}&search=${name}&page_size=15`)
-        searchResults = searchResults.data.results.map(e => ({ id: e.id, name: e.name, image: e.background_image ? e.background_image.replace("/media/", "/media/crop/600/400/") : "https://via.placeholder.com/150", genres: e.genres.map(e => e.name) }))
+        searchResults = searchResults.data.results.map(e => ({ id: e.id, name: e.name, image: e.background_image ? e.background_image.replace("/media/", "/media/crop/600/400/") : "https://via.placeholder.com/150", genres: e.genres.map(e => e.name), rating: e.rating }))
 
         let dbResults = await Videogame.findAll({
-            attributes: ["id", "name", "image"],
+            attributes: ["id", "name", "image", "rating"],
             include: [{ model: Genre, attributes: ["name"], through: { attributes: [] } }],
             where: {
                 name: {
@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
             }
         })
 
-        searchResults = dbResults.map(e => ({ id: e.id + "A", name: e.name, image: e.image || "https://via.placeholder.com/150", genres: e.genres.map(e => e.name) })).concat(searchResults)
+        searchResults = dbResults.map(e => ({ id: e.id + "A", name: e.name, image: e.image || "https://via.placeholder.com/150", genres: e.genres.map(e => e.name), rating: e.rating })).concat(searchResults)
 
         if (!searchResults.length) return res.send({ msg: "Your search - " + decodeURIComponent(name) + " - did not match any documents." })
 
@@ -35,7 +35,7 @@ router.get('/', async (req, res) => {
     }
 
     const dbGames = await Videogame.findAll({
-        attributes: ["id", "name", "image"],
+        attributes: ["id", "name", "image", "rating"],
         include: [{ model: Genre, attributes: ["name"], through: { attributes: [] } }]
     })
 
@@ -43,10 +43,10 @@ router.get('/', async (req, res) => {
     //One of this project restrictions is that I have to manage pagination from my backend, not being allowed to use query parameters such as "page". To simulate that behaviour, I've put 100 games inside "games" variable
     let games = await Promise.all([axios.get(`${URL}&page_size=25`), axios.get(`${URL}&page_size=25&page=2`), axios.get(`${URL}&page_size=25&page=3`), axios.get(`${URL}&page_size=25&page=4`)])
         .then(values => values.flatMap(e => e.data.results)
-            .map(e => ({ id: e.id, name: e.name, image: e.background_image ? e.background_image.replace("/media/", "/media/crop/600/400/") : "https://via.placeholder.com/150", genres: e.genres.map(e => e.name) }))
+            .map(e => ({ id: e.id, name: e.name, image: e.background_image ? e.background_image.replace("/media/", "/media/crop/600/400/") : "https://via.placeholder.com/150", genres: e.genres.map(e => e.name), rating: e.rating }))
         )
 
-    games = dbGames.map(e => ({ id: e.id + "A", name: e.name, image: e.image || "https://via.placeholder.com/150", genres: e.genres.map(e => e.name) })).concat(games)
+    games = dbGames.map(e => ({ id: e.id + "A", name: e.name, image: e.image || "https://via.placeholder.com/150", genres: e.genres.map(e => e.name), rating: e.rating })).concat(games)
 
 
     res.send(games)

@@ -1,18 +1,16 @@
 //React
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 //Redux
 import { useDispatch, useSelector } from 'react-redux'
-import { setLoading, searchGames, getAllGames } from '../../redux/actions'
+import { searchGames, getAllGames } from '../../redux/actions'
 //Components
 import GameCard from '../GameCard/GameCard'
 import Loading from '../Loading/Loading'
 import PageControls from "../PageControls/PageControls"
-import Search from '../Search/Search'
 //Styles
 import styles from "./Cards.module.css"
 //React-router
 import { useLocation } from 'react-router'
-import Filters from '../Filters/Filters'
 import SearchBar from '../SearchBar/SearchBar'
 
 function useQuery() {
@@ -21,9 +19,8 @@ function useQuery() {
     return React.useMemo(() => new URLSearchParams(search), [search]);
 }
 
-export const Cards = (props) => {
+export const Cards = () => {
 
-    const counter = useRef(0)
     const dispatch = useDispatch()
     const { games, loading, page, searchResults } = useSelector(state => state)
 
@@ -34,6 +31,7 @@ export const Cards = (props) => {
     useEffect(() => {
         if (searchQuery) dispatch(searchGames(searchQuery))
         else if (!games.length) dispatch(getAllGames())
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchQuery])
 
 

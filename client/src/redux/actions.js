@@ -2,7 +2,7 @@ import axios from "axios"
 
 //"https://videogames-1.herokuapp.com"
 //"http://192.168.0.242:3001"
-const URL = "https://videogames-1.herokuapp.com"
+const URL = "http://192.168.0.242:3001"
 
 export const GET_ALL_GAMES = "GET_ALL_GAMES"
 export const SEARCH_GAMES = "SEARCH_GAMES"
@@ -12,13 +12,13 @@ export const SET_PAGE = "SET_PAGE"
 export const RESET_FILTERS = "RESET_FILTERS"
 export const FILTER_BY_ORIGIN = "FILTER_BY_ORIGIN"
 export const FILTER_BY_GENRE = "FILTER_BY_GENRE"
+export const SORT = "SORT"
 
 export const getAllGames = () => {
     return (dispatch) => {
         return axios.get(URL + "/videogames", {
         })
             .then(res => {
-                console.log(res.data)
                 dispatch({
                     type: GET_ALL_GAMES,
                     payload: res.data
@@ -84,5 +84,12 @@ export const filterByGenre = (genre) => {
     return {
         type: FILTER_BY_GENRE,
         payload: genre
+    }
+}
+
+export const sort = (sortParam) => {
+    return {
+        type: SORT,
+        payload: sortParam
     }
 }

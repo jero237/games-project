@@ -1,5 +1,5 @@
 //React
-import React, { useEffect } from 'react'
+import React from 'react'
 //Components
 import Nav from "../../components/Nav/Nav"
 import Cards from '../../components/Cards/Cards'
@@ -10,7 +10,7 @@ import styles from "./Main.module.css"
 //Router
 import { Route } from 'react-router'
 
-const Main = (props) => {
+const Main = () => {
 
     return (
         <>

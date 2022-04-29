@@ -28,7 +28,6 @@
 
 /* Change color of dropdown links on hover */
 .dropdownContent span:hover {
-  background-color: #3700b3;
   border-radius: 4px;
   cursor: pointer;
 }
@@ -55,6 +54,6 @@
 }
 
 .active {
-  background-color: #3700b3;
   border-radius: 4px;
+  color: #bb86fc;
 }
