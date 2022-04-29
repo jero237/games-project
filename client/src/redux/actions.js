@@ -1,8 +1,10 @@
 import axios from "axios"
+const URL = process.env.REACT_APP_API_ENDPOINT
+
 
 //"https://videogames-1.herokuapp.com"
 //"http://192.168.0.242:3001"
-const URL = "https://videogames-1.herokuapp.com"
+// const URL = "https://videogames-1.herokuapp.com"
 
 export const GET_ALL_GAMES = "GET_ALL_GAMES"
 export const SEARCH_GAMES = "SEARCH_GAMES"
@@ -15,7 +17,9 @@ export const FILTER_BY_GENRE = "FILTER_BY_GENRE"
 export const SORT = "SORT"
 
 export const getAllGames = () => {
+    console.log(process.env)
     return (dispatch) => {
+
         return axios.get(URL + "/videogames", {
         })
             .then(res => {

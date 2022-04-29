@@ -6,7 +6,7 @@
   opacity: 1;
   animation: fadeInAnimation ease 1s 1 forwards;
   gap: 2rem;
-  margin: 2rem 0;
+  margin: 6.5rem 0;
 }
 
 @keyframes fadeInAnimation {
