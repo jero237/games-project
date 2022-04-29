@@ -11,7 +11,7 @@ function GameCard({ id, name, image, genres }) {
 
     return (
         <>
-            <div className={styles.card} onClick={() => { dispatch(setLoading(true)); history.push("/main/" + id) }}>
+            <div className={styles.card} onClick={() => { dispatch(setLoading(true)); history.push("/main/game/" + id) }}>
 
                 {/* Card Image */}
                 <div className={styles.imgContainer}>

@@ -17,7 +17,7 @@ function Nav(props) {
     return (
         <nav>
             <Link to="/main" onClick={handleLogoClick}><img src={logo} alt="" className={styles.logo} /></Link>
-            <Link to="/create-game" className={styles.link}>Add Game</Link>
+            <Link to="/main/create-game" className={styles.link}>Add Game</Link>
         </nav>
     )
 }
