@@ -1,14 +1,15 @@
 const express = require("express")
 const router = express.Router()
-const key = require('../apikey')
-const URL = `https://api.rawg.io/api/games?key=${key}`
 const axios = require('axios')
 const { Videogame, Genre } = require('../db')
 const { Op } = require("sequelize")
 
 router.get('/', async (req, res) => {
 
+    const URL = `https://api.rawg.io/api/games?key=${process.env.API_KEY}`
+
     const { name } = req.query
+
 
     if (name) {
 

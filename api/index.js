@@ -22,11 +22,10 @@ const { conn } = require('./src/db.js');
 const { Videogame, Genre } = require("./src/db");
 const { default: axios } = require('axios');
 
-
 // Syncing all the models at once.
 conn.sync({ force: false }).then(() => {
-  server.listen(process.env.PORT || 5000, async () => {
-    console.log('%s listening at 5432'); // eslint-disable-line no-console
+  server.listen(3001, async () => {
+    console.log('%s listening at 3001'); // eslint-disable-line no-console
 
     //Genres
     const genres = await axios.get("https://api.rawg.io/api/genres?key=ceb0f6ea04044c50837e32de918ddad7")

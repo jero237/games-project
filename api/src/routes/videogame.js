@@ -1,7 +1,7 @@
 const { default: axios } = require('axios')
 const express = require('express')
 const router = express.Router()
-const key = require("../apikey")
+const key = process.env.API_KEY
 const URL = `https://api.rawg.io/api/games/`
 const { Videogame, Genre } = require("../db")
 
@@ -29,7 +29,7 @@ router.get('/:id', async (req, res) => {
             id: game.id + "A",
             platforms: await Promise.all(
                 game.platforms.map(e =>
-                    axios.get(`https://api.rawg.io/api/platforms/${e}?key=ceb0f6ea04044c50837e32de918ddad7`)
+                    axios.get(`https://api.rawg.io/api/platforms/${e}?key=${key}`)
                         .then(res => res.data.name)
                         .catch(e => { })
                 )),
@@ -64,7 +64,6 @@ router.post("/", async (req, res) => {
 
     const { name, description, launchDate, rating, image, platforms, genres } = req.body
 
-    console.log(typeof platforms)
 
     const game = await Videogame.create({
         name,
