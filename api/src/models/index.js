@@ -19,10 +19,7 @@ module.exports = (sequelize) => {
       type: DataTypes.FLOAT
     },
     image: {
-      type: DataTypes.STRING,
-      validate: {
-        isUrl: true
-      }
+      type: DataTypes.STRING
     },
     platforms: {
       type: DataTypes.ARRAY(DataTypes.INTEGER),

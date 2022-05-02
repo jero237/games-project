@@ -1,12 +1,12 @@
 const express = require("express")
 const router = express.Router()
-const key = process.env.API_KEY
-const URL = `https://api.rawg.io/api/games?key=${key}`
 const axios = require('axios')
 const { Videogame, Genre } = require('../db')
 const { Op } = require("sequelize")
 
 router.get('/', async (req, res) => {
+
+    const URL = `https://api.rawg.io/api/games?key=${process.env.API_KEY}`
 
     const { name } = req.query
 
@@ -45,7 +45,7 @@ router.get('/', async (req, res) => {
     let games = await Promise.all([axios.get(`${URL}&page_size=25`), axios.get(`${URL}&page_size=25&page=2`), axios.get(`${URL}&page_size=25&page=3`), axios.get(`${URL}&page_size=25&page=4`)])
         .then(values => values.flatMap(e => e.data.results)
             .map(e => ({ id: e.id, name: e.name, image: e.background_image ? e.background_image.replace("/media/", "/media/crop/600/400/") : "https://via.placeholder.com/150", genres: e.genres.map(e => e.name), rating: e.rating }))
-            , e => console.log(process.env.API_KEY))
+        )
 
     games = dbGames.map(e => ({ id: e.id + "A", name: e.name, image: e.image || "https://via.placeholder.com/150", genres: e.genres.map(e => e.name), rating: e.rating })).concat(games)
 

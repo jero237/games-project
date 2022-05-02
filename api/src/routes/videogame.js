@@ -29,7 +29,7 @@ router.get('/:id', async (req, res) => {
             id: game.id + "A",
             platforms: await Promise.all(
                 game.platforms.map(e =>
-                    axios.get(`https://api.rawg.io/api/platforms/${e}?key=ceb0f6ea04044c50837e32de918ddad7`)
+                    axios.get(`https://api.rawg.io/api/platforms/${e}?key=${key}`)
                         .then(res => res.data.name)
                         .catch(e => { })
                 )),
@@ -64,7 +64,6 @@ router.post("/", async (req, res) => {
 
     const { name, description, launchDate, rating, image, platforms, genres } = req.body
 
-    console.log(typeof platforms)
 
     const game = await Videogame.create({
         name,
@@ -72,10 +71,10 @@ router.post("/", async (req, res) => {
         launchDate,
         rating,
         image,
-        platforms: JSON.parse(platforms)
+        platforms: platforms
     })
 
-    await game.addGenres(JSON.parse(genres))
+    await game.addGenres(genres)
 
     res.send({ msg: "Game added successfully" })
 
