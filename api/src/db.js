@@ -2,17 +2,34 @@ require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
-const {
-  DB_USER, DB_PASSWORD, DB_HOST
-} = process.env;
+const allConfig = require('../config/config.js');
+const url = require('url');
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/videogames`, {
-  logging: false, // set to console.log to see the raw SQL queries
-  native: false, // lets Sequelize know we can use pg-native for ~30% more speed
-  define: {
-    timestamps: false
-  }
-});
+const env = process.env.NODE_ENV || 'development';
+const config = allConfig[env];
+const db = {};
+let sequelize;
+
+
+if (env === 'production') {
+  // Break apart the Heroku database url and rebuild the configs we need
+  const { DATABASE_URL } = process.env;
+  const dbUrl = url.parse(DATABASE_URL);
+  const username = dbUrl.auth.substr(0, dbUrl.auth.indexOf(':'));
+  const password = dbUrl.auth.substr(dbUrl.auth.indexOf(':') + 1, dbUrl.auth.length);
+  const dbName = dbUrl.path.slice(1);
+  const host = dbUrl.hostname;
+  const { port } = dbUrl;
+  config.host = host;
+  config.port = port;
+  sequelize = new Sequelize(dbName, username, password, config);
+}
+
+else {
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
+}
+
+
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
