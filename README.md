@@ -1,3 +1,6 @@
+## About
+This was one my first fullstack (react/express) project when I was doing soyHenry bootcamp.
+
 ## Deployed Link
 https://games-project-rose.vercel.app/
 <hr>
